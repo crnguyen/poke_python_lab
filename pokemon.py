@@ -7,6 +7,36 @@ from random import *
 class Pokemon:
     # PART 1 ########### TO DO ###################
     # Initialize the Pokemon Class with an __init__() method
+
+    def __init__(self, name, hp, ph_attack, defense, sp_attack, sp_defense, speed, type1, type2, moves):
+        #HP, ATTACK, DEFENSE, SPECIAL ATTACK, SPECIAL DEFENSE, SPEED
+        self.name = name
+        self.hp = hp
+        self.ph_attack = ph_attack
+        self.defense = defense
+        self.sp_attack = sp_attack
+        self.sp_defense = sp_defense
+        self.speed = speed
+        self.type1 = type1
+        self.type2 = type2
+        self.moves = moves
+        
+        print('name:', self.name)
+        print('hp:', self.hp)
+        print('PH attack:', self.ph_attack)
+        print('defense:', self.defense)
+        print('special attack:', self.sp_attack)
+        print('special defense:', self.sp_defense)
+        print('speed:', self.speed)
+        print('type1:', self.type1)
+        print('type2:', self.type2)
+        print('moves:', self.moves)
+
+        # print('damage:', self.damage)
+        # print('hp:', self.hp)
+        # print('moves:', self.moves)
+
+
     # This class takes in 10 variable parameters in addition to self
     #
     # HINT: Take a look at some of the instances of this pokemon class below along with some of the pre-built
@@ -15,6 +45,10 @@ class Pokemon:
     # 
     # Define a revive(???, ???): method for the Pokemon class. This will allow pokemon to revive after a battle
     # later on in the simulation
+
+    def revive(self, pokemon_hp):
+        self.__init__(self.name, pokemon_hp, self.ph_attack, self.defense, self.sp_attack, self.sp_defense, self.speed, self.type1, self.type2, self.moves)
+
     #
     # HINT: the revive(???, ???): function takes in one other parameter besides self. To get a better idea of 
     # what the ONE other parameter is, take a look at the Save Class below
@@ -22,8 +56,6 @@ class Pokemon:
     # The revive function is also one line. It starts with self.__init__() which has strictly 10 variable parameters
     # One variable parameter passed into this function is not like the others, what might it be???
     
-
-
     ################ POKEMON ATTACK METHOD ################
     # This class method allows a pokemon to make an attack from the list of its moves
     # Besides self, it takes in the parameter 'choice', which is an integer value in the range of the
@@ -634,7 +666,7 @@ xerneas = Pokemon('Xerneas', 394, 268, 226, 397, 232, 297, 'fairy', 'none',
 # by printing its different attribuites.
 
 # 1st new instance
-
+pokemon = Pokemon('', 0, 0 ,0, 0, 0, 0,)
 # 2nd new instance
 
 # 3rd new instance
@@ -730,12 +762,13 @@ def new_game(pokemon1, pokemon2, save_mon):
 # Starts the whole script when it is run
 # Fires choice_one()
 
-def intro():
-    print('Welcome to Adam\'s Pokémon Battle Simulator!')
-    print('This simulator uses some optimized pokémon stats and moves for its current level of complexity, but feel free to add in or edit pokémon at your leisure!')
-    print('')
-    print('You can start by picking your first pokemon from this list:')
-    choice_one()
+#### COMMENTED OUT #############
+# def intro():
+#     print('Welcome to Adam\'s Pokémon Battle Simulator!')
+#     print('This simulator uses some optimized pokémon stats and moves for its current level of complexity, but feel free to add in or edit pokémon at your leisure!')
+#     print('')
+#     print('You can start by picking your first pokemon from this list:')
+#     choice_one()
 
 ############## CHOICE ONE #################
 # Fired by intro(), prompts the user to make a choice for the first pokemon, saves the 
@@ -857,4 +890,4 @@ def choice_two(pokemon1):
             print(f'{n}!')
             return timer(n - 1)
     timer(10)
-intro()
+# intro()
