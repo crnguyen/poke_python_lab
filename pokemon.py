@@ -691,28 +691,76 @@ all_pokemon = [venusaur, charizard, blastoise, meganium, typhlosion, feraligatr,
 # new_game() function
 
 
-def battle():       # def battle(???, ???, ???, ???):
+def battle(pokemon1, pokemon2, turn_counter, save_mon):       # def battle(???, ???, ???, ???):
     # PART 3 ############# TO DO ###################
-    # Establish a base case for the pokemon battle simulation
-    # Add to the turn count on each turn (recursion)
+    turn_counter.add_turn()
+    print(f'Turn {turn_counter.counter}')
+    # BASE CASE
+    if pokemon1.hp <= 0:
+        turn_counter.reset()
+        print(f'{pokemon2.name} wins!')
+        return new_game(pokemon1, pokemon2, save_mon)
+    elif pokemon2.hp <= 0:
+        turn_counter.reset()
+        print(f'{pokemon1.name} wins!')
+        return new_game(pokemon1, pokemon2, save_mon)
     # Create a randomized selection of moves for both pokemon
     # Store each pokemon's move selection as integer variables
     # Store each move's name as variables
     # Store the data from each pokemon's moves into variables 
+    selection1 = round((len(pokemon1.moves)-1) * random())
+    move1_name = pokemon1.moves[selection1]['name']
+    move1 = pokemon1.attack(selection1)[0:5]
+    selection2 = round((len(pokemon2.moves)-1) * random())
+    move2_name = pokemon2.moves[selection2]['name']
+    move2 = pokemon2.attack(selection2)[0:5]
     # Have the faster pokemon attack first
     # Then have the second pokemon attack
     # Print out which pokemon is making which attack whenever a pokemon makes an attack
     # Send the right data for the pokemon to take damage from the other pokemon's attacks
-    # Set proper win conditions
-    # Print out which pokemon has won if there is a winner
-    # Return a new_game() with the proper 3 parameters if there is a win
-    # After both pokemon have made a move return the updated data as a recursive callback
-
-    # BASE CASE HERE
-
-    # RECURSIVE CASE HERE
-
-    return # ???????
+    if pokemon1.speed > pokemon2.speed:
+        print(f'{pokemon1.name} used {move1_name}!')
+        pokemon2.damage(move1[0], move1[1], move1[2], move1[3], move1[4])
+        if pokemon2.hp <= 0:
+            turn_counter.reset()
+            print(f'{pokemon1.name} wins!')
+            return new_game(pokemon1, pokemon2, save_mon)
+        else:
+            print(f'{pokemon2.name} used {move2_name}!')
+            pokemon1.damage(move2[0], move2[1], move2[2], move2[3], move2[4])
+    elif pokemon2.speed > pokemon1.speed:
+        print(f'{pokemon2.name} used {move2_name}!')
+        pokemon1.damage(move2[0], move2[1], move2[2], move2[3], move2[4])
+        if pokemon1.hp <= 0:
+            turn_counter.reset()
+            print(f'{pokemon2.name} wins!')
+            return new_game(pokemon1, pokemon2, save_mon)
+        else:
+            print(f'{pokemon1.name} used {move1_name}!')
+            pokemon2.damage(move1[0], move1[1], move1[2], move1[3], move1[4])
+    else:
+        first = round(2 * random())
+        if first == 1:
+            print(f"{pokemon1.name} used {move1_name}")
+            pokemon2.damage(move1[0], move1[1], move1[2], move1[3], move1[4])
+            if pokemon2.hp <= 0:
+                turn_counter.reset()
+                print(f'{pokemon1.name} wins!')
+                return new_game(pokemon1, pokemon2, save_mon) 
+            else:
+                print(f"{pokemon2.name} used {move2_name}")
+                pokemon1.damage(move2[0], move2[1], move2[2], move2[3], move2[4])
+        else:
+            print(f"{pokemon2.name} used {move2_name}")
+            pokemon1.damage(move2[0], move2[1], move2[2], move2[3], move2[4])
+            if pokemon1.hp <= 0:
+                turn_counter.reset()
+                print(f'{pokemon2.name} wins!')
+                return new_game(pokemon1, pokemon2, save_mon)
+            else:
+                print(f"{pokemon1.name} used {move1_name}")
+                pokemon2.damage(move1[0], move1[1], move1[2], move1[3], move1[4])
+    return battle(pokemon1, pokemon2, turn_counter, save_mon)
 
 ########################################################################################
 #                NEW GAME FUNCTION
